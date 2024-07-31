@@ -1,0 +1,6 @@
+Flask
+flask-cors
+groq
+langchain
+langchain-community
+langchain-groq
