@@ -1,6 +1,6 @@
 Flask
 flask-cors
+flask[async]
 groq
 langchain
-langchain-community
 langchain-groq
