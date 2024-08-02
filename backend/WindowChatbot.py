@@ -32,7 +32,7 @@ class WindowChatbot:
                     "system",
                     """You are a powerful assistant that specializes in answering questions regarding window manufacturing.
                     Provide detailed and accurate information without using any markdown in your responses. Always ensure clarity and precision.
-                    If you don't know the answer, suggest checking external sources for the latest data.""",
+                    If you don't know the answer, suggest checking external sources for the latest data. You can assume that the user has not been in the conversation before.""",
                 ),
                 MessagesPlaceholder(variable_name="chat_history"),
                 ("human", "{input}"),
@@ -49,7 +49,7 @@ class WindowChatbot:
             history_messages_key="chat_history",
         )
 
-    def ask(self, question: str) -> str:
+    def ask(self, question: str, session_id: str) -> str:
         """
         Asks a question to the chatbot and returns the response.
         
@@ -61,6 +61,6 @@ class WindowChatbot:
         """
         response = self.chain_with_memory.invoke(
             {"input": question}, 
-            {"configurable": {"session_id": "unused"}}
+            {"configurable": {"session_id": session_id}}
         )
         return response.content
