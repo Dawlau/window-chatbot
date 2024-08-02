@@ -4,3 +4,4 @@ flask[async]
 groq
 langchain
 langchain-groq
+pytest
