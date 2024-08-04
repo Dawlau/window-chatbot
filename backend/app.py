@@ -9,7 +9,7 @@ import uuid
 app = Flask(__name__)
 
 # Enable Cross-Origin Resource Sharing (CORS)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Set CORS origins from environment variable
 app.config["CORS_ORIGINS"] = os.getenv("CORS_ORIGINS")
@@ -20,7 +20,7 @@ chatbot = WindowChatbot(api_key=API_KEY)
 
 
 @app.route("/api/health", methods=["GET"])
-def health() -> Dict[str, str]:
+async def health() -> Dict[str, str]:
     """
     Endpoint to check the health of the API.
 
@@ -31,7 +31,7 @@ def health() -> Dict[str, str]:
 
 
 @app.route("/api/login", methods=["POST"])
-def login() -> Dict[str, str]:
+async def login() -> Dict[str, str]:
     """
     Endpoint to generate a session id for the user.
 
@@ -50,6 +50,7 @@ async def chat() -> Union[Dict[str, Any], tuple[Dict[str, str], int]]:
     Returns:
         JSON response containing the chatbot's answer or an error message.
     """
+    session_id = request.get_json().get("session_id")
     if "session_id" not in session:
         return jsonify({"error": "User not logged in"}), 401
 
