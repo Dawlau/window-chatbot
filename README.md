@@ -29,3 +29,7 @@ docker-compose up
 ```
 
 After running the app you should be able to access the chatbot at http://localhost:3000/
+
+## Backend Flowchart
+
+![backend flowchart](./flowchart.svg)

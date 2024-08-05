@@ -1,0 +1,59 @@
+@startuml
+title Window Chatbot API Flowchart
+
+start
+  :Initialize Flask App;
+  :Enable CORS;
+if (CORS Origins from ENV?) then (Yes)
+  :Set CORS Origins;
+else (No)
+endif
+  :Set Secret Key from ENV;
+  :Set API Key from ENV;
+  :Set Max Number of Tokens;
+  :Initialize WindowChatbot;
+  :Define /api/health Endpoint;
+  :Define /api/login Endpoint;
+  :Define /api/chat Endpoint;
+  :Run Flask App on host 0.0.0.0 and port 5000;
+stop
+
+
+split
+  :GET Request to /api/health;
+  :Return JSON {"status": "healthy"};
+  stop
+split again
+  :POST Request to /api/login;
+  :Generate Session ID;
+  :Store Session ID in session;
+  :Return JSON {"session_id": session_id};
+  stop
+split again
+  :POST Request to /api/chat;
+  if (session_id in session?) then (No)
+    :Return Error {"error": "User not logged in"} [401];
+    stop
+  else (Yes)
+  endif
+
+  :Extract session_id from JSON;
+
+  if (session_id matches session["session_id"]?) then (No)
+    :Return Error {"error": "Invalid session id"} [401];
+    stop
+  else (Yes)
+  endif
+
+  :Extract question from JSON;
+  if (question provided?) then (Yes)
+    :Get Response from Chatbot;
+    :Return JSON {"response": response};
+    stop
+  else (No)
+    :Return Error {"error": "No question provided"} [400];
+    stop
+  endif
+end split
+
+@enduml
