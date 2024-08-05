@@ -26,11 +26,10 @@ const ChatWrapper: React.FC = () => {
     }, []);
 
     const fetchWelcomeMessage = async (sessionId: string) => {
-        
+
         try {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/chat`, { question: 'Hello', session_id: sessionId }, { withCredentials: true });
             const botMessage: Message = { type: 'bot', text: res.data.response };
-            console.log("Bot message: ", botMessage);
             setMessages([botMessage]);
         } catch (error) {
             console.error('Error fetching welcome message:', error);
@@ -46,7 +45,6 @@ const ChatWrapper: React.FC = () => {
         setQuestion('');
 
         try {
-            console.log("Session ID: ", sessionId);
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/chat` as string, { question: question, session_id: sessionId }, { withCredentials: true });
             const botMessage: Message = { type: 'bot', text: res.data.response };
             setMessages(prevMessages => [...prevMessages, botMessage]);
@@ -57,9 +55,9 @@ const ChatWrapper: React.FC = () => {
 
     return (
         sessionId ?
-        <ChatBox messages={messages} fetchWelcomeMessage={fetchWelcomeMessage} sessionId={sessionId} handleSubmit={handleSubmit} question={question} setQuestion={setQuestion} />
-        :
-        <></>
+            <ChatBox messages={messages} fetchWelcomeMessage={fetchWelcomeMessage} sessionId={sessionId} handleSubmit={handleSubmit} question={question} setQuestion={setQuestion} />
+            :
+            <></>
     );
 };
 
