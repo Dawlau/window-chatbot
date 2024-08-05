@@ -22,7 +22,7 @@ That is it.
 
 ### Run the app
 
-Now it is time to actually run the app and interact with the chatbot. To do so run:
+Now it is time to actually run the app and interact with the chat. To do so run:
 
 ```
 docker-compose up
