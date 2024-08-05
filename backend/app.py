@@ -16,7 +16,9 @@ app.config["CORS_ORIGINS"] = os.getenv("CORS_ORIGINS")
 app.secret_key = os.getenv("SECRET_KEY")
 
 API_KEY = os.getenv("GROQ_API_KEY")
-chatbot = WindowChatbot(api_key=API_KEY)
+MAX_NUM_TOKENS = 500
+
+chatbot = WindowChatbot(api_key=API_KEY, max_num_tokens=MAX_NUM_TOKENS)
 
 
 @app.route("/api/health", methods=["GET"])
