@@ -52,7 +52,6 @@ async def chat() -> Union[Dict[str, Any], tuple[Dict[str, str], int]]:
     Returns:
         JSON response containing the chatbot's answer or an error message.
     """
-    session_id = request.get_json().get("session_id")
     if "session_id" not in session:
         return jsonify({"error": "User not logged in"}), 401
 
