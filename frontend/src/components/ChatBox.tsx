@@ -26,6 +26,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ messages, fetchWelcomeMessage, sessio
         fetchWelcomeMessage(sessionId);
     }, []);
 
+    // Scroll to the bottom of the chat box when messages change
     useEffect(() => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
