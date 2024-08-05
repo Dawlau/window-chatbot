@@ -45,7 +45,7 @@ const ChatWrapper: React.FC = () => {
         setQuestion('');
 
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/chat` as string, { question: question, session_id: sessionId }, { withCredentials: true });
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/chat`, { question: question, session_id: sessionId }, { withCredentials: true });
             const botMessage: Message = { type: 'bot', text: res.data.response };
             setMessages(prevMessages => [...prevMessages, botMessage]);
         } catch (error) {
