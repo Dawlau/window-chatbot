@@ -17,7 +17,7 @@ class WindowChatbot:
         chain_with_memory (RunnableWithMessageHistory): The pipeline with memory integration.
     """
 
-    def __init__(self, api_key: str) -> None:
+    def __init__(self, api_key: str, max_num_tokens: int) -> None:
         """
         Initializes the WindowChatbot with the provided API key.
         
@@ -39,7 +39,9 @@ class WindowChatbot:
             ]
         )
 
-        self.llm = ChatGroq(api_key=api_key)
+        self.max_num_tokens = max_num_tokens
+
+        self.llm = ChatGroq(api_key=api_key, max_tokens=self.max_num_tokens)
         self.chain = self.prompt | self.llm
 
         self.chain_with_memory = RunnableWithMessageHistory(
