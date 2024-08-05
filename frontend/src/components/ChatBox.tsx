@@ -24,7 +24,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ messages, fetchWelcomeMessage, sessio
 
     useEffect(() => {
         fetchWelcomeMessage(sessionId);
-    }, [fetchWelcomeMessage, sessionId]);
+    }, []);
 
     useEffect(() => {
         if (chatBoxRef.current) {
